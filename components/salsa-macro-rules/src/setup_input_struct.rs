@@ -148,6 +148,7 @@ macro_rules! setup_input_struct {
             }
 
             impl $Configuration {
+                /// Get the ingredient for this struct.
                 pub fn ingredient(db: &dyn $zalsa::Database) -> &$zalsa_struct::IngredientImpl<Self> {
                     Self::ingredient_(db.zalsa())
                 }
@@ -165,6 +166,7 @@ macro_rules! setup_input_struct {
                     }
                 }
 
+                /// Get a mutable reference to the ingredient for this struct.
                 pub fn ingredient_mut(zalsa_mut: &mut $zalsa::Zalsa) -> (&mut $zalsa_struct::IngredientImpl<Self>, &mut $zalsa::Runtime) {
                     zalsa_mut.new_revision();
                     let index = zalsa_mut.lookup_jar_by_type::<$zalsa_struct::JarImpl<$Configuration>>();
@@ -261,6 +263,7 @@ macro_rules! setup_input_struct {
                 }
             }
             impl $Struct {
+                /// Create a new instance of this struct.
                 #[inline]
                 pub fn $new_fn<$Db>(db: &$Db, $($required_field_id: $required_field_ty),*) -> Self
                 where
@@ -270,6 +273,7 @@ macro_rules! setup_input_struct {
                     Self::builder($($required_field_id,)*).new(db)
                 }
 
+                /// Build a new instance of this struct.
                 pub fn builder($($required_field_id: $required_field_ty),*) -> <Self as $zalsa_struct::HasBuilder>::Builder
                 {
                     builder::new_builder($($zalsa::maybe_default!($field_option, $field_ty, $field_id,)),*)

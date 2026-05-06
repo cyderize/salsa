@@ -220,6 +220,7 @@ macro_rules! setup_tracked_struct {
             }
 
             impl $Configuration {
+                /// Get the ingredient for this struct.
                 pub fn ingredient(db: &dyn $zalsa::Database) -> &$zalsa_struct::IngredientImpl<Self> {
                     Self::ingredient_(db.zalsa())
                 }
@@ -339,6 +340,7 @@ macro_rules! setup_tracked_struct {
             }
 
             impl<$db_lt> $Struct<$db_lt> {
+                /// Create a new instance of this struct.
                 pub fn $new_fn<$Db>(db: &$db_lt $Db, $($field_id: $field_ty),*) -> Self
                 where
                     // FIXME(rust-lang/rust#65991): The `db` argument *should* have the type `dyn Database`

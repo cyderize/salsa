@@ -197,6 +197,7 @@ macro_rules! setup_interned_struct {
             }
 
             impl $Configuration {
+                /// Get the ingredient for this struct.
                 pub fn ingredient(zalsa: &$zalsa::Zalsa) -> &$zalsa_struct::IngredientImpl<Self> {
                     static CACHE: $zalsa::IngredientCache<$zalsa_struct::IngredientImpl<$Configuration>> =
                         $zalsa::IngredientCache::new();
@@ -306,6 +307,7 @@ macro_rules! setup_interned_struct {
             }
 
             impl<$db_lt> $Struct< $($db_lt_arg)? >  {
+                /// Intern the given value.
                 pub fn $new_fn<$Db, $($indexed_ty: $zalsa::Lookup<$field_ty> + ::std::hash::Hash,)*>(db: &$db_lt $Db,  $($field_id: $indexed_ty),*) -> Self
                 where
                     // FIXME(rust-lang/rust#65991): The `db` argument *should* have the type `dyn Database`
